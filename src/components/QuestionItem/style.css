@@ -1,0 +1,40 @@
+.question_wrapper {
+  width: 100%;
+  border-bottom: 1px solid rgb(15, 191, 214);
+  display: inline-block;
+  background: white;
+}
+
+.question_link_wrapper {
+  padding: 2%;
+}
+
+.question_link {
+  color: #565673;
+}
+
+.question_link h5 {
+  font-weight: 700;
+}
+.question_link:hover {
+  color: #565673;
+  text-decoration: none;
+}
+.question_thumbs_wrapper {
+  padding-top: 15px;
+  margin: 0;
+}
+
+#question_mark {
+  width: 100%;
+  max-width: 100px;
+  min-width: 20px;
+  align-self: center;
+}
+.question_thumbs {
+  width: 50%;
+}
+
+.question_logo {
+  display: flex;
+}

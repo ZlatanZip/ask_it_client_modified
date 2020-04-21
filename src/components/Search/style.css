@@ -1,0 +1,22 @@
+.search form {
+  display: flex;
+  margin-left: 40px;
+}
+
+.searchInput {
+  border: 0;
+  width: 0;
+  transition: width 0.1s ease-in;
+}
+
+.searchInput.active {
+  width: 180px;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.searchIcon {
+  cursor: pointer;
+}

@@ -1,0 +1,60 @@
+.sign_up_form {
+  margin-top: 3.3rem;
+  position: absolute;
+  width: 40%;
+  min-width: 340px;
+  height: auto;
+  z-index: 4;
+  background-color: rgb(216, 160, 41);
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.login_form {
+  margin-top: 3.3rem;
+  position: absolute;
+  width: 40%;
+  min-width: 340px;
+  height: auto;
+  z-index: 4;
+  background-color: rgb(41, 144, 175);
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.form_title {
+  text-align: center;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid green;
+}
+
+.forms_label {
+  padding: 1rem 2rem 0 2rem;
+  color: white;
+  font-weight: 600;
+}
+
+.form_buttons {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.7rem;
+  margin: 0 1rem 1rem 1rem;
+  transition: 0.4s;
+}
+.form_buttons:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  font-weight: 500;
+}
+.submit_button_color {
+  background-color: rgb(233, 162, 10);
+  color: white;
+}
+.close_button_color {
+  background-color: rgb(15, 191, 214);
+  color: white;
+}

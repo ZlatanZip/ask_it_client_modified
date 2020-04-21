@@ -1,0 +1,14 @@
+.logo {
+  text-align: center;
+}
+.logo a {
+  font-size: 6rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 900;
+}
+
+.logo a:hover {
+  text-decoration: none;
+  color: #333;
+}

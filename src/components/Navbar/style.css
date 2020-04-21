@@ -1,0 +1,68 @@
+.hamburger_menu {
+  background-color: rgb(15, 174, 214);
+  opacity: 0.8;
+  float: right;
+  border: 1px solid yellow;
+}
+
+.navbar-brand {
+  padding-top: 10px;
+}
+.navbar-brand h4 {
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.navbar_layout {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  z-index: 5;
+  transition: 0.5s;
+}
+
+.navbar_links_wrapper {
+  text-decoration: none;
+  transition: 0.4s;
+  margin: auto;
+}
+
+.navbar_buttons {
+  transition: 0.4s;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.4rem 1.6rem;
+  margin-right: 0.5rem;
+}
+
+.small_screen_buttons {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.2rem 0.8rem;
+  margin-right: 0.5rem;
+}
+
+.navbar_buttons a {
+  color: white;
+}
+
+.navbar_member_links {
+  display: contents;
+}
+.navbar_buttons a:hover {
+  color: white;
+  text-decoration: none;
+}
+.navbar_buttons:hover {
+  transform: scale(1.1);
+  font-weight: 500;
+}
+.sign_up_button_color {
+  background-color: rgb(233, 162, 10);
+  color: white;
+}
+.login_button_color {
+  background-color: rgb(15, 191, 214);
+  color: white;
+}

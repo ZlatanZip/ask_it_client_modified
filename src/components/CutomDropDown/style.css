@@ -1,0 +1,35 @@
+.scrollable-menu {
+  height: auto;
+  max-height: 100px;
+  overflow-x: hidden;
+}
+
+#dropdown-button-item {
+  transition: 0.4s;
+  background-color: rgb(20, 204, 211);
+  border-color: transparent;
+  margin-bottom: 5px;
+  /*  border-radius: 50%; */
+}
+
+.dropdown-menu {
+  height: 300px;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin: 10px;
+}
+#dropdown-button-item:hover {
+  transform: scale(1.05);
+  font-weight: 500;
+  background-color: rgba(20, 205, 211, 0.308);
+}
+
+.dropdown-item {
+  transition: 0.2s;
+}
+
+.dropdown-item:hover {
+  transform: scale(1.1);
+  font-weight: 500;
+  border: 1px solid rgba(21, 194, 200, 0.746);
+}

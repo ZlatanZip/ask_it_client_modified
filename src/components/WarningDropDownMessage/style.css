@@ -1,0 +1,6 @@
+.warning_wrapper {
+  z-index: 1;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+}

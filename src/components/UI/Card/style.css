@@ -1,0 +1,26 @@
+.card {
+  width: 100%;
+  background: #fff;
+  padding: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.cardHeader {
+  font-size: large;
+  font-weight: 800;
+  padding: 1rem 0.5rem 1.5rem 0.5rem;
+  text-transform: uppercase;
+  text-align: center;
+  box-sizing: border-box;
+  letter-spacing: 2px;
+  color: #333;
+}
+
+.cardHeader h3 {
+  padding-bottom: 1rem;
+}
+
+.children_wrapper {
+  text-align: center;
+  margin-top: 15px;
+}
