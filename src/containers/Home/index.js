@@ -15,6 +15,7 @@ import {getUsers} from "../../store/actions/users";
 import Search from "../../components/Search";
 
 const Home = (props) => {
+  console.log(props);
   const [items, setItems] = useState([]);
   const [initialized, setInitialized] = useState(false);
   const [totalHits, setTotalHits] = useState(0);
@@ -88,7 +89,7 @@ const Home = (props) => {
     <div>
       <Container>
         <Row>
-          <Col xl={8} xs={12} md={12}>
+          <Col style={{padding: "0"}} xl={8} xs={12} md={12}>
             <Card
               title='Recent Questions'
               header={<Search />}
@@ -127,7 +128,7 @@ const Home = (props) => {
 
             {/*   <RecentQuestions questions={questions} /> */}
           </Col>
-          <Col xs={12} md={4}>
+          <Col style={{padding: "0"}} xs={12} md={4}>
             <Sidebar users={users} hotQuestions={questions} />
           </Col>
         </Row>

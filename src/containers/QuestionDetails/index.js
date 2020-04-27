@@ -7,24 +7,37 @@ import Cards from "../../components/UI/Card";
 import Spinner from "../../components/Spinner";
 import AnswerItem from "../../components/AnswerItem";
 
+import "./style.css";
+
 import {
   getSingleQuestionDetails,
   answerQuestion,
+  deleteQuestion,
+  voteQuestion,
+  deleteAAnswer,
+  invalidateAQuestion,
+  updateAAnswer,
 } from "../../store/actions/questions";
+import CustomForm from "../../components/CustomForm";
 
 const QuestionDetails = (props) => {
   const {userId, role} = props;
   const questionId = props.match.params.id;
   const [error, setError] = useState(null);
+  const [showAnswerInput, setShowAnswerInput] = useState(false);
+  const [answer, setAnswer] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const question = useSelector(
+    (state) => state.questions.singleQuestionDetails
+  );
 
   const [answerFields, setAnswerFileds] = useState({
     answer: "",
     updatedAnswer: "",
   });
   const dispatch = useDispatch();
-  console.log(answerFields.answer);
 
   const fetchQuestion = useCallback(async () => {
     setIsLoading(true);
@@ -44,24 +57,49 @@ const QuestionDetails = (props) => {
     });
   }, [dispatch, fetchQuestion]);
 
-  const setAnswer = (e) => {
+  const setNewAnswer = (e) => {
+    const {value} = e.target;
+    setAnswer(value);
+    //setShowWarning(false);
+  };
+
+  /*   const setAnswer = (e) => {
     e.preventDefault();
     const name = e.target.name;
     setAnswerFileds({...answerFields, [name]: e.target.value});
     setShowWarning(false);
   };
-
+ */
   const answerHandler = useCallback(
-    async (value, typeOfAction) => {
+    async (id, value, typeOfAction) => {
       let action;
       switch (typeOfAction) {
-        case "answer":
+        case "addAQuestion":
           action = answerQuestion(questionId, value);
           break;
-        case "update":
+        case "updateAQuestion":
           action = answerQuestion(questionId, value);
           break;
-        case "delete":
+        case "deleteAQuestion":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "voteAQuestion":
+          action = voteQuestion(questionId, value);
+          break;
+        case "invalidateAQuestion":
+          action = invalidateAQuestion(questionId);
+          break;
+        case "addAnswer":
+          action = answerQuestion(questionId, value);
+          break;
+        case "updateAnswer":
+          action = updateAAnswer(questionId, id, value);
+          break;
+        case "deleteAnswer":
+          console.log("heloo deleted answer");
+          action = deleteAAnswer(questionId, value);
+          break;
+        case "voteAAnswer":
           action = answerQuestion(questionId, value);
           break;
         default:
@@ -75,7 +113,7 @@ const QuestionDetails = (props) => {
       } catch (err) {
         console.log(err.message);
       }
-
+      // window.location.reload(false);
       setIsLoading(false);
     },
     [dispatch, questionId, setError]
@@ -93,10 +131,6 @@ const QuestionDetails = (props) => {
       }
     }
   }; */
-
-  const question = useSelector(
-    (state) => state.questions.singleQuestionDetails
-  );
 
   if (error) {
     return (
@@ -127,32 +161,51 @@ const QuestionDetails = (props) => {
       </div>
     );
   }
+  /*   const test = (e, a, b) => {
+    console.log(e.target.id + a + b);
+  }; */
 
   return (
     <Cards
-      header={
-        <button
-          className='navbar_buttons sign_up_button_color'
-          onClick={() => {}}
-        >
-          Answer the question
-        </button>
-      }
       title={`question by ${question && question.authorName}`}
       biggerTitle={question && question.description}
       style={{marginBottom: "5px"}}
     >
-      {question &&
-        question.answers.map((answer) => {
-          return (
-            <AnswerItem
-              key={answer.id}
-              signedInUserId={userId}
-              answerData={answer}
-              answerAction={answerHandler}
-            />
-          );
-        })}
+      <div>
+        <div className='button_wrapper'>
+          <button
+            className={`navbar_buttons  ${
+              userId === question.postedBy
+                ? "sign_up_button_color"
+                : "login_button_color"
+            }`}
+            onClick={() => setShowAnswerInput((prevState) => !prevState)}
+          >
+            {userId === question.postedBy ? "Update question" : "Add Answer"}
+          </button>
+        </div>
+        {showAnswerInput && (
+          <CustomForm
+            placeholder='  Type in your answer!'
+            submitValue={answerHandler}
+            typeOfAction='addAnswer'
+          />
+        )}
+        {/*  {showWarning && (
+                  <WarningDropDownMessage title='To  update a answer you need to type in some proper text :) !' />
+                )} */}
+        {question &&
+          question.answers.map((answer) => {
+            return (
+              <AnswerItem
+                key={answer.id}
+                signedInUserId={userId}
+                answerData={answer}
+                answerAction={answerHandler}
+              />
+            );
+          })}
+      </div>
     </Cards>
   );
 };

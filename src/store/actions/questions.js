@@ -1,10 +1,12 @@
 import {
-  addAQuestions,
+  addAQuestion,
   getAllQuestions,
   getUserQuestions,
   getSingleQuestion,
   answerAQuestion,
   removeQuestion,
+  deleteAnswer,
+  updateAnswer,
 } from "../../lib/questions";
 
 import {
@@ -22,7 +24,23 @@ import {
 const URL = process.env.REACT_APP_API_URL;
 const PORT = process.env.REACT_APP_API_PORT;
 
-//axios set headers
+export const addNewQuestion = (data) => {
+  console.log(data);
+  return async (getState, dispatch) => {
+    try {
+      const addedQuestionData = await addAQuestion(data);
+      console.log(addedQuestionData);
+      dispatch({
+        type: ADD_A_QUESTION,
+        addedQuestion: addedQuestionData,
+      });
+    } catch (err) {
+      // do something with message!
+      console.log(err.response);
+    }
+  };
+};
+
 export const fetchAllQuestions = (page) => {
   return async (dispatch) => {
     try {
@@ -60,6 +78,53 @@ export const deleteQuestion = (questionId) => {
       const removedQuestionData = await removeQuestion(questionId);
       console.log(removedQuestionData);
       dispatch({type: DELETE_QUESTION, questionId: questionId});
+    } catch (err) {
+      // do something with message!
+      console.log(err.response);
+    }
+  };
+};
+
+export const answerQuestion = (questionId, answer) => {
+  console.log(" hello from redux");
+  return async (dispatch) => {
+    const answeredQuestionData = await answerAQuestion(questionId, answer);
+    console.log(answeredQuestionData);
+    /*   dispatch({
+      type: ANSWER_A_QUESTION,
+      questionId: resData._id,
+      updatedQuestion: resData,
+    });
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    } */
+  };
+};
+
+export const updateAAnswer = (questionId, answerId, answer) => {
+  console.log(" hello from redux");
+  return async (dispatch) => {
+    const updateAnswerData = await updateAnswer(questionId, answerId, answer);
+    console.log(updateAnswerData);
+    /*   dispatch({
+      type: ANSWER_A_QUESTION,
+      questionId: resData._id,
+      updatedQuestion: resData,
+    });
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    } */
+  };
+};
+
+export const deleteAAnswer = (questionId, answerId) => {
+  console.log("questionId", questionId);
+  console.log("answerId", answerId);
+  return async (dispatch) => {
+    try {
+      const removedQuestionData = await deleteAnswer(questionId, answerId);
+      console.log(removedQuestionData);
+      /*  dispatch({type: DELETE_QUESTION, questionId: questionId}); */
     } catch (err) {
       // do something with message!
       console.log(err.response);
@@ -113,24 +178,7 @@ export const getUsersQuestions = () => {
   };
 }; */
 
-export const addNewQuestion = (data) => {
-  console.log(data);
-  return async (getState, dispatch) => {
-    try {
-      const addedQuestionData = await addAQuestions(data);
-      console.log(addedQuestionData);
-      dispatch({
-        type: ADD_A_QUESTION,
-        addedQuestion: addedQuestionData,
-      });
-    } catch (err) {
-      // do something with message!
-      console.log(err.response);
-    }
-  };
-};
-
-export const reviewQuestion = (questionId, votes) => {
+export const voteQuestion = (questionId, votes) => {
   return async (dispatch, getState) => {
     const questions = getState().questions.allQuestions;
     const userData = await localStorage.getItem("userData");
@@ -165,25 +213,7 @@ export const reviewQuestion = (questionId, votes) => {
   };
 };
 
-export const answerQuestion = (questionId, answer) => {
-  console.log(answer);
-  return async (dispatch) => {
-    const answeredQuestionData = await answerAQuestion(questionId, {
-      "answer": answer,
-    });
-    console.log(answeredQuestionData);
-    /*   dispatch({
-      type: ANSWER_A_QUESTION,
-      questionId: resData._id,
-      updatedQuestion: resData,
-    });
-    if (!response.ok) {
-      throw new Error("Something went wrong!");
-    } */
-  };
-};
-
-export const invalidateQuestion = (questionId) => {
+export const invalidateAQuestion = (questionId) => {
   return async () => {
     const userData = await localStorage.getItem("userData");
     let data = JSON.parse(userData);

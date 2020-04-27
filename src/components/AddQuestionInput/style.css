@@ -1,17 +1,20 @@
 .question_lable_layout {
-  margin: 0 auto;
+  text-align: center;
 }
 .question_label {
   height: 2.4rem;
   font-size: 1rem;
   font-weight: 600;
-  width: 14rem;
+  width: 70%;
+  max-width: 500px;
   border-radius: 5px;
   transition: 1s;
 }
 
 .question_lable_active {
-  width: 14rem;
+  margin: 20px 0;
+  width: 70%;
+  max-width: 500px;
   height: 2.4rem;
   font-size: 1rem;
   font-weight: 600;
@@ -34,18 +37,22 @@
 }
 
 .question_arrow_active {
-  width: 35px;
+  width: 37px;
+  height: 37px;
+  margin-left: 5px;
+  margin-bottom: 5px;
   cursor: pointer;
   animation: pulse 2s infinite;
   transform: scale(1.1);
   border-radius: 50%;
+  background: rgb(20, 182, 211);
 }
 
 .question_arrow:hover {
-  background-image: radial-gradient(rgb(20, 204, 211), white);
+  background: rgb(20, 182, 211);
   border-radius: 50%;
   cursor: pointer;
-  padding: 3px;
+  transition: 0.5s;
 }
 .warning_wrapper {
   z-index: 1;

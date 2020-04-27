@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 import "./style.css";
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {Container, Row, Col} from "react-bootstrap";
 
+import CustomForm from "../CustomForm";
 import WarningDropDownMessage from "../WarningDropDownMessage";
 import AddQuestionInput from "../AddQuestionInput";
 import {updateAnswer} from "../../lib/questions";
+
+import generateAPIHit from "../../helpers/generateAPIHit";
+import {updateAAnswer} from "../../store/actions/questions";
 
 const AnswerItem = (props) => {
   const {signedInUserId, answerData, answerAction} = props;
@@ -48,6 +50,24 @@ const AnswerItem = (props) => {
     }
   };
 
+  const classiee = showForm
+    ? {
+        margin: "20px 0",
+        height: "2.5rem",
+        transition: "1s",
+      }
+    : {
+        height: "0",
+        transition: "1s",
+      };
+
+  const widths = showForm
+    ? {
+        width: "70%",
+        transition: "1s",
+      }
+    : null;
+
   return (
     <Container>
       <Row className='answer_wrapper' style={{margin: "0 auto"}}>
@@ -58,23 +78,29 @@ const AnswerItem = (props) => {
             src={require("../../assets/icons/answer_check.png")}
           />
         </Col>
+
         <Col sm={8} xs={8}>
           <div className='question_link'>
             <span>answerd by {fullName}</span>
             <h5> {answer}</h5>
-            {showForm && (
-              <div>
-                <input
-                  placeholder='  Update answer!'
-                  className='update_answer_input'
-                  onChange={setAnswerUpdate}
-                  value={updatedAnswer}
-                />
-                {showWarning && (
+
+            <div style={classiee}>
+              <CustomForm
+                style={widths}
+                placeholder=' Type in updated answer!'
+                submitValue={answerAction}
+                typeOfAction='update'
+              />
+              {/*  <input
+                placeholder='  Update answer!'
+                className='update_answer_input'
+                onChange={setAnswerUpdate}
+                value={updatedAnswer}
+              />*/}
+              {/*  {showWarning && (
                   <WarningDropDownMessage title='To  update a answer you need to type in some proper text :) !' />
-                )}
-              </div>
-            )}
+                )} */}
+            </div>
 
             {userId === signedInUserId && (
               <div className='answer_button_wrapper'>
@@ -86,7 +112,9 @@ const AnswerItem = (props) => {
                 </button>
                 <button
                   className={responsiveButtonsClass}
-                  onClick={() => answerAction(updatedAnswer, "update")}
+                  onClick={() =>
+                    answerAction(id, updatedAnswer, "updateAnswer")
+                  }
                 >
                   Delete
                 </button>
@@ -98,7 +126,7 @@ const AnswerItem = (props) => {
           <img
             alt='thumbsUpLogo'
             className='question_thumbs'
-            onClick={() => console.log("thumb up")}
+            onClick={() => {}}
             src={require("../../assets/icons/thumb_up.png")}
             onClick={votePositive}
           />

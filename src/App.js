@@ -37,8 +37,15 @@ const App = (props) => {
               />
             )}
           />
-
-          <Route path='/my_questions' component={MyQuestions} />
+          <Route
+            path='/my_questions'
+            render={(props) => (
+              <MyQuestions
+                {...props}
+                userId={parsedData && parsedData.userId}
+              />
+            )}
+          />
           <Route
             token={parsedData && parsedData.token}
             path='/login'

@@ -26,8 +26,8 @@
 }
 
 #question_mark {
-  width: 100%;
-  max-width: 100px;
+  width: 80%;
+  max-width: 80px;
   min-width: 20px;
   align-self: center;
 }

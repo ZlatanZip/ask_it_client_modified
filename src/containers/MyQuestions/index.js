@@ -1,10 +1,7 @@
 import React, {useEffect, useState, useCallback} from "react";
-import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import axios from "axios";
-import {Button, Row} from "react-bootstrap";
 
-import {getUsersQuestions} from "../../store/actions/questions";
+import {getUsersQuestions, deleteQuestion} from "../../store/actions/questions";
 
 import "./style.css";
 import Spinner from "../../components/Spinner";
@@ -13,6 +10,8 @@ import QuestionItem from "../../components/QuestionItem";
 import SideBar from "../../components/Sidebar";
 
 const MyQuestions = (props) => {
+  console.log(props);
+  const {userId} = props;
   const {pathname} = props.location;
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +35,51 @@ const MyQuestions = (props) => {
       setIsLoading(false);
     });
   }, [fetchQuestions]);
+
+  const questionHandler = useCallback(
+    async (questionId, value, typeOfAction) => {
+      let action;
+      switch (typeOfAction) {
+        case "addAQuestion":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "updateAQuestion":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "deleteAQuestion":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "voteAQuestion":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "addAnswer":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "updateAnswer":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "deleteAnswer":
+          action = deleteQuestion(questionId, value);
+          break;
+        case "voteAAnswer":
+          action = deleteQuestion(questionId, value);
+          break;
+        default:
+          return;
+      }
+      setError(null);
+      setIsLoading(true);
+
+      try {
+        await dispatch(action);
+      } catch (err) {
+        console.log(err.message);
+      }
+
+      setIsLoading(false);
+    },
+    [dispatch, setError]
+  );
 
   if (error) {
     return (
@@ -82,9 +126,14 @@ const MyQuestions = (props) => {
     >
       <div className='my_questions_wrapper'>
         {userQuestions.map((question) => (
-          <QuestionItem key={question._id} questionDetails={question} />
+          <QuestionItem
+            key={question._id}
+            signedInUserId={userId}
+            questionDetails={question}
+            questionAction={questionHandler}
+          />
         ))}
-      </div>{" "}
+      </div>
     </Card>
   );
 };

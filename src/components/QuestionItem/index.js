@@ -1,17 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import "./style.css";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {Container, Row, Col} from "react-bootstrap";
 
-const QuestionItem = ({questionDetails}) => {
-  const {_id, authorName, createdOn, description} = questionDetails;
+import CustomForm from "../CustomForm";
 
+const QuestionItem = (props) => {
+  const {questionDetails, signedInUserId, questionAction} = props;
+  const {_id, authorName, createdOn, postedBy, description} = questionDetails;
+  const [showForm, setShowForm] = useState(false);
+  console.log(questionDetails);
   var MS_IN_A_DAY = 1000 * 60 * 60 * 24;
   var difference = Date.now() - Date.parse(createdOn.date);
   var daysDifference = Math.floor(difference / MS_IN_A_DAY);
 
   var screenWidth = window.innerWidth;
+  const responsiveButtonsClass =
+    window.innerWidth > 450 ? "navbar_buttons" : "small_screen_buttons";
 
   const userInfo = useSelector((state) => state.users.userInfo);
 
@@ -52,6 +58,34 @@ const QuestionItem = ({questionDetails}) => {
               </span>
             )}
           </Link>
+          {showForm && (
+            <div>
+              <CustomForm
+                placeholder=' Type in changed question!'
+                submitValue={() => {}}
+                typeOfAction='update'
+              />
+              {/*  {showWarning && (
+                  <WarningDropDownMessage title='To  update a answer you need to type in some proper text :) !' />
+                )} */}
+            </div>
+          )}
+          {postedBy === signedInUserId && (
+            <div className='answer_button_wrapper'>
+              <button
+                className={responsiveButtonsClass}
+                onClick={() => setShowForm((prevState) => !prevState)}
+              >
+                {!showForm ? "Edit" : "Close"}
+              </button>
+              <button
+                className={responsiveButtonsClass}
+                onClick={questionAction(_id, "delete")}
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </Col>
         {/*  <Col sm={2} xs={2} className='question_thumbs_wrapper'>
           <img

@@ -9,7 +9,7 @@ if (dataFromStorage) {
   userId = parsedData.userId;
 }
 
-export async function addAQuestions(data) {
+export async function addAQuestion(data) {
   const addQuestionUrl = `${URL}${PORT}/api/questions`;
   const addedQuestionsData = await Axios.post(addQuestionUrl, {data});
   return addedQuestionsData;
@@ -58,19 +58,23 @@ export async function reviewAQuestion(userId) {
 
 export async function answerAQuestion(questionId, answer) {
   const answerAQuestionUrl = `${URL}${PORT}/api/questions/answer/${questionId}`;
-  const answerAQuestionData = await Axios.put(answerAQuestionUrl, answer);
+  const answerAQuestionData = await Axios.put(answerAQuestionUrl, {
+    "answer": answer,
+  });
   return answerAQuestionData;
 }
 
-export async function updateAnswer(userId) {
-  const updateAnswerUrl = `${URL}${PORT}/api/questions/answer/${userId}`;
-  const updateAnswerData = await Axios.put(updateAnswerUrl);
+export async function updateAnswer(questionId, answerId, answer) {
+  const updateAnswerUrl = `${URL}${PORT}/api/questions/answer/${questionId}/${answerId}`;
+  const updateAnswerData = await Axios.patch(updateAnswerUrl, {answer});
   return updateAnswerData;
 }
 
-export async function deleteAnswer(userId) {
-  const deleteAnswerUrl = `${URL}${PORT}/api/questions/answer/${userId}`;
-  const deleteAnswerData = await Axios.put(deleteAnswerUrl);
+export async function deleteAnswer(questionId, answerId) {
+  const deleteAnswerUrl = `${URL}${PORT}/api/questions/answer/${questionId}/${answerId}`;
+  const deleteAnswerData = await Axios.delete(deleteAnswerUrl, {
+    "hello": "hayyy",
+  });
   return deleteAnswerData;
 }
 
